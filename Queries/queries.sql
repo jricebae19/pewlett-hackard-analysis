@@ -99,3 +99,26 @@ ON (e.emp_no = de.emp_no)
 WHERE (e.birth_date BETWEEN '1952-01-01' AND '1955-12-31')
 AND (e.hire_date BETWEEN '1985-01-01' AND '1988-12-31')
 AND (de.to_date = '9999-01-01');
+
+-- Sales Dept Retirees 7.3.6
+SELECT di.emp_no, di.first_name, di.last_name, di.dept_name
+INTO sales_re_info
+FROM dept_info AS di
+WHERE dept_name = ('Sales');
+
+-- Development Dept Retirees 7.3.6
+SELECT di.emp_no, di.first_name, di.last_name, di.dept_name
+INTO develop_re_info
+FROM dept_info AS di
+WHERE dept_name = ('Development');
+
+--Join both sales and development retirees
+SELECT di.emp_no, di.first_name, di.last_name, di.dept_name
+INTO sales_dev_info
+FROM dept_info AS di
+LEFT JOIN develop_re_info AS dri
+ON (di.emp_no = dri.emp_no)
+LEFT JOIN sales_re_info AS sri
+ON (di.emp_no = sri.emp_no)
+WHERE di.dept_name IN ('Sales', 'Development')
+ORDER BY di.emp_no;
