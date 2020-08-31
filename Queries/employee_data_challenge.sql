@@ -19,3 +19,10 @@ INTO retiring_titles
 FROM unique_titles AS ut
 GROUP BY ut.title
 ORDER BY count DESC;
+
+-- Retrieve number of retirees by title
+SELECT COUNT(ut.title), ut.title
+INTO retiring_titles
+FROM unique_titles AS ut
+GROUP BY ut.title
+ORDER BY count DESC;
